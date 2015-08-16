@@ -3,6 +3,8 @@ MyData = new Mongo.Collection('myData');
 if (Meteor.isClient) {
 
   Meteor.startup(function() {
+    // Meteor.subscribe("alldata")
+    // console.log(MyData.find().fetch());
     React.render(
       <MeteorData
         subscribe = { () => {Meteor.subscribe('alldata')}}
