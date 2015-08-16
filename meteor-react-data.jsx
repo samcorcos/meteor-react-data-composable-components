@@ -8,11 +8,9 @@ if (Meteor.isClient) {
         subscribe = { () => {
           return Meteor.subscribe('alldata') }}
         fetch = { () => {
-          return {mydata: MyData.find().fetch()} }}
-        render = { ({loading, mydata}) => {
-          // return <Component loading={loading} mydata={mydata[0] ? _.pluck(mydata, "info") : "empty" } />}}
-          return <Component loading={loading} mydata={mydata} />}}
-
+          return {data: MyData.find().fetch()} }}
+        render = { ({loading, data}) => {
+          return <Component loading={loading} data={data} />}}
       />,
       document.getElementById('app')
     );
@@ -42,7 +40,7 @@ if (Meteor.isClient) {
       }
       return (
         <div>
-          This is where the data goes: {this.props.mydata[0].info}
+          This is where the data goes: {this.props.data[0].info}
         </div>
       )
     }
