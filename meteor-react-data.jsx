@@ -3,13 +3,16 @@ MyData = new Mongo.Collection('myData');
 if (Meteor.isClient) {
 
   Meteor.startup(function() {
-    // Meteor.subscribe("alldata")
-    // console.log(MyData.find().fetch());
     React.render(
       <MeteorData
-        subscribe = { () => {Meteor.subscribe('alldata')}}
-        fetch = { () => {info: MyData.find().fetch()}}
-        render = { ({loading, info}) => <Component loading={loading} info={info} />}
+        subscribe = { () => {
+          return Meteor.subscribe('alldata') }}
+        fetch = { () => {
+          return {mydata: MyData.find().fetch()} }}
+        render = { ({loading, mydata}) => {
+          // return <Component loading={loading} mydata={mydata[0] ? _.pluck(mydata, "info") : "empty" } />}}
+          return <Component loading={loading} mydata={mydata} />}}
+
       />,
       document.getElementById('app')
     );
@@ -34,10 +37,12 @@ if (Meteor.isClient) {
 
   Component = React.createClass({
     render() {
-        console.log(this);
-        return (
+      if (this.props.loading) {
+        return <h1>App is loading</h1>
+      }
+      return (
         <div>
-          This is where the data goes
+          This is where the data goes: {this.props.mydata[0].info}
         </div>
       )
     }
