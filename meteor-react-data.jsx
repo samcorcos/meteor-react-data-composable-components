@@ -5,9 +5,9 @@ if (Meteor.isClient) {
   Meteor.startup(function() {
     React.render(
       <MeteorData
-        subscribe = { () => {Meteor.subscribe('alldata')}}
-        fetch = { () => {info: MyData.find().fetch()}}
-        render = { ({loading, info}) => <Component loading={loading} info={info} />}
+        subscribe = { () => {return Meteor.subscribe('alldata')}}
+        fetch = { () => {return {info: MyData.find().fetch()}}}
+        render = { ({loading, info}) => {return <Component loading={loading} info={info} />}}
       />,
       document.getElementById('app')
     );
@@ -35,7 +35,7 @@ if (Meteor.isClient) {
         console.log(this);
         return (
         <div>
-          This is where the data goes
+          This is where the data goes: {this.props.info}
         </div>
       )
     }
