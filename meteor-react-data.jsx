@@ -5,7 +5,7 @@ if (Meteor.isClient) {
   Meteor.startup(function() {
     React.render(
       <MeteorData
-        subscribe = { () => {Meteor.subscribe('myData')}}
+        subscribe = { () => {Meteor.subscribe('alldata')}}
         fetch = { () => {info: MyData.find().fetch()}}
         render = { ({loading, info}) => <Component loading={loading} info={info} />}
       />,
@@ -48,7 +48,7 @@ if (Meteor.isServer) {
       info: "This is Data"
     })
   }
-  Meteor.publish("myData", function() {
+  Meteor.publish("alldata", function() {
     return MyData.find()
   })
 }
